@@ -1,10 +1,16 @@
-import { MyComponent } from "./MyComponent";
+import Header from "./Header";
+import Footer from "./Footer";
+import VotePicker from "./VotePicker";
+import LeaderBoard from "./LeaderBoard";
 import "./App.css";
 
 function App() {
     return (
         <div className="App">
-            <MyComponent />
+            <Header />
+            <VotePicker />
+            <LeaderBoard />
+            <Footer />
         </div>
     );
 }
