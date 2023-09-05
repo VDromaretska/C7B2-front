@@ -10,7 +10,7 @@ export function VoteView({ src }: VoteViewProps): JSX.Element {
     const breedName = extractBreedName(src as string);
     const handleVote = async () => {
         try {
-            await axios.put(baseURL + "/votes/" + breedName, {
+            await axios.put(baseURL + "votes/" + breedName, {
                 breed: breedName,
             });
         } catch (error) {
