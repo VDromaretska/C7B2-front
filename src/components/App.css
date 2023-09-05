@@ -14,3 +14,32 @@ html {
     width: 400px;
     height: auto;
 }
+
+/* Add a border to the entire table */
+table {
+    border-collapse: collapse;
+    width: 50%;
+    border: 1px solid #969696;
+    margin: 2%;
+    padding-left: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Add a border to each table row (except the first one) */
+tr:not(:first-child) {
+    border-top: 1px solid #969696;
+}
+
+/* Add borders to table cells (td or th) */
+td,
+th {
+    border: 1px solid #dddddd;
+    padding: 8px; /* Adjust padding as needed */
+    text-align: center; /* Adjust text alignment as needed */
+}
+
+button {
+    margin: 2%;
+    padding: 5px;
+}
