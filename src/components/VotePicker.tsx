@@ -1,4 +1,5 @@
 import axios from "axios";
+import urlExist from "url-exist";
 import { useState, useEffect } from "react";
 
 interface APIResponse {
@@ -15,6 +16,18 @@ export default function VotePicker(): JSX.Element {
     const [dogsImageSrc, setDogsImageSrc] = useState<DogImgSrc>();
 
     useEffect(() => {
+        async function fetchDogImg() {
+            const APIUrl = "https://dog.ceo/api/breeds/image/random";
+            const response = await axios.get(APIUrl);
+            const result: APIResponse = response.data;
+            const isValid = await urlExist(result.message);
+            const dogImg: string = isValid
+                ? result.message
+                : await fetchDogImg();
+
+            return dogImg;
+        }
+
         async function createImgData() {
             try {
                 const dogOneValue = await fetchDogImg();
@@ -30,13 +43,6 @@ export default function VotePicker(): JSX.Element {
         }
         createImgData();
     }, []);
-
-    async function fetchDogImg() {
-        const APIUrl = "https://dog.ceo/api/breeds/image/random";
-        const response = await axios.get(APIUrl);
-        const result: APIResponse = response.data;
-        return result.message;
-    }
 
     return (
         <div className="vote-img-container">
