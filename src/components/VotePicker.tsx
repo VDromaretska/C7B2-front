@@ -12,25 +12,24 @@ interface DogImgSrc {
 }
 
 export default function VotePicker(): JSX.Element {
-    const [dogsImageSrc, setDogsImageSrc] = useState<DogImgSrc | null>(null);
+    const [dogsImageSrc, setDogsImageSrc] = useState<DogImgSrc>();
 
     useEffect(() => {
+        async function createImgData() {
+            try {
+                const dogOneValue = await fetchDogImg();
+                const dogTwoValue = await fetchDogImg();
+                const imageSrcData: DogImgSrc = {
+                    dogOne: dogOneValue,
+                    dogTwo: dogTwoValue,
+                };
+                setDogsImageSrc(imageSrcData);
+            } catch (error) {
+                console.log("Error fetching data", error);
+            }
+        }
         createImgData();
     }, []);
-
-    async function createImgData() {
-        try {
-            const dogOneValue = await fetchDogImg();
-            const dogTwoValue = await fetchDogImg();
-            const imageSrcData: DogImgSrc = {
-                dogOne: dogOneValue,
-                dogTwo: dogTwoValue,
-            };
-            setDogsImageSrc(imageSrcData);
-        } catch (error) {
-            console.log("Error fetching data", error);
-        }
-    }
 
     async function fetchDogImg() {
         const APIUrl = "https://dog.ceo/api/breeds/image/random";
