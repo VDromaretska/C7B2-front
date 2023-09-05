@@ -1,6 +1,7 @@
 import axios from "axios";
 import urlExist from "url-exist";
 import { useState, useEffect } from "react";
+import { VoteView } from "./VoteView";
 
 interface APIResponse {
     message: string;
@@ -13,7 +14,10 @@ interface DogImgSrc {
 }
 
 export default function VotePicker(): JSX.Element {
-    const [dogsImageSrc, setDogsImageSrc] = useState<DogImgSrc>();
+    const [dogsImageSrc, setDogsImageSrc] = useState<DogImgSrc>({
+        dogOne: "",
+        dogTwo: "",
+    });
 
     useEffect(() => {
         async function fetchDogImg() {
@@ -24,7 +28,7 @@ export default function VotePicker(): JSX.Element {
             const dogImg: string = isValid
                 ? result.message
                 : await fetchDogImg();
-
+            console.log("Dog image is", dogImg);
             return dogImg;
         }
 
@@ -46,17 +50,8 @@ export default function VotePicker(): JSX.Element {
 
     return (
         <div className="vote-img-container">
-            <img
-                className="dog-img"
-                src={dogsImageSrc?.dogOne}
-                alt="random breed"
-            />
-            <br />
-            <img
-                className="dog-img"
-                src={dogsImageSrc?.dogTwo}
-                alt="random breed"
-            />
+            <VoteView src={dogsImageSrc.dogOne} />
+            <VoteView src={dogsImageSrc.dogTwo} />
         </div>
     );
 }
