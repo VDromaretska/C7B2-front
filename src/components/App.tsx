@@ -6,8 +6,8 @@ import "./App.css";
 
 export const baseURL =
     process.env.NODE_ENV === "production"
-        ? "https://c7b2-dogapp.onrender.com/"
-        : "http://localhost:4000/";
+        ? "https://c7b2-dogapp.onrender.com"
+        : "http://localhost:4000";
 
 function App() {
     return (
