@@ -1,3 +1,16 @@
 html {
     background: #f8f8f8;
+    display: flex;
+    text-align: center;
+}
+
+.vote-img-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.dog-img {
+    margin-left: 30px;
+    width: 400px;
+    height: auto;
 }
