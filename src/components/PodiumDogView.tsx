@@ -7,11 +7,12 @@ interface TopDogProps {
     dog: Leaderboard;
 }
 
-export default function TopDog({ dog }: TopDogProps): JSX.Element {
+export default function PodiumDogView({ dog }: TopDogProps): JSX.Element {
     const [image, setImage] = useState("");
     const [rerenderCounter, setRerenderCounter] = useState(0);
     function breedUrlConstructor(breed: string): string {
-        return `https://dog.ceo/api/breed/${breed}/images/random`;
+        const searchBreed = breed.replace("-", "/");
+        return `https://dog.ceo/api/breed/${searchBreed}/images/random`;
     }
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { baseURL } from "./App";
 import { useEffect, useState } from "react";
-import { Top3 } from "./Top3";
+import { Top3Breeds } from "./Top3Breeds";
 
 export interface Leaderboard {
     breed: string;
@@ -56,13 +56,11 @@ export default function LeaderBoard({
                         );
                     })}
                 </tbody>
-        </table>
-        <button onClick={() => setRerenderCounter((prev) => prev + 1)}>
-            Refresh table
-        </button>
-            <Top3 leaderboard={leaderboard} />
-           
-
+            </table>
+            <button onClick={() => setRerenderCounter((prev) => prev + 1)}>
+                Refresh table
+            </button>
+            <Top3Breeds podium={leaderboard.slice(0, 3)} />
         </div>
     );
 }
