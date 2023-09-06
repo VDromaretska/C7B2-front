@@ -4,15 +4,20 @@ import { baseURL } from "./App";
 
 interface VoteViewProps {
     src: string;
+    setRerenderCounter: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function VoteView({ src }: VoteViewProps): JSX.Element {
+export function VoteView({
+    src,
+    setRerenderCounter,
+}: VoteViewProps): JSX.Element {
     const breedName = extractBreedName(src as string);
     const handleVote = async () => {
         try {
             await axios.put(baseURL + "/votes/" + breedName, {
                 breed: breedName,
             });
+            setRerenderCounter((prev) => prev + 1);
         } catch (error) {
             console.log("Error on voting", error);
         }
