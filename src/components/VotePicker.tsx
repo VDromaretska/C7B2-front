@@ -3,7 +3,7 @@ import urlExist from "url-exist";
 import { useState, useEffect } from "react";
 import { VoteView } from "./VoteView";
 
-interface APIResponse {
+export interface APIResponse {
     message: string;
     status: string;
 }

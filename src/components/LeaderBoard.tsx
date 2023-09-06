@@ -1,10 +1,12 @@
 import axios from "axios";
 import { baseURL } from "./App";
 import { useEffect, useState } from "react";
+import { Top3Images } from "./Top3Images";
 
-interface Leaderboard {
+export interface Leaderboard {
     breed: string;
     votes: number;
+    imageUrl?: string;
 }
 
 export default function LeaderBoard(): JSX.Element {
@@ -48,6 +50,11 @@ export default function LeaderBoard(): JSX.Element {
                     })}
                 </tbody>
             </table>
+
+            <Top3Images
+                top3={leaderboard.slice(0, 3)}
+                setTop3={setLeaderboard}
+            />
             <button onClick={getLeaderboardInfo}>Refresh table</button>
         </div>
     );
