@@ -1,8 +1,9 @@
 import axios from "axios";
 import { baseURL } from "./App";
 import { useEffect, useState } from "react";
+import { Top3 } from "./Top3";
 
-interface Leaderboard {
+export interface Leaderboard {
     breed: string;
     votes: number;
 }
@@ -55,10 +56,13 @@ export default function LeaderBoard({
                         );
                     })}
                 </tbody>
-            </table>
-            <button onClick={() => setRerenderCounter((prev) => prev + 1)}>
-                Refresh table
-            </button>
+        </table>
+        <button onClick={() => setRerenderCounter((prev) => prev + 1)}>
+            Refresh table
+        </button>
+            <Top3 leaderboard={leaderboard} />
+           
+
         </div>
     );
 }
