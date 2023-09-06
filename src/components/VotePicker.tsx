@@ -16,11 +16,13 @@ interface DogImgSrc {
 interface VotePickerProps {
     setRerenderCounter: React.Dispatch<React.SetStateAction<number>>;
     rerenderCounter: number;
+    currentUserId: string;
 }
 
 export default function VotePicker({
     rerenderCounter,
     setRerenderCounter,
+    currentUserId,
 }: VotePickerProps): JSX.Element {
     const [dogsImageSrc, setDogsImageSrc] = useState<DogImgSrc>({
         dogOne: "",
@@ -61,10 +63,12 @@ export default function VotePicker({
             <VoteView
                 src={dogsImageSrc.dogOne}
                 setRerenderCounter={setRerenderCounter}
+                currentUserId={currentUserId}
             />
             <VoteView
                 src={dogsImageSrc.dogTwo}
                 setRerenderCounter={setRerenderCounter}
+                currentUserId={currentUserId}
             />
         </div>
     );
