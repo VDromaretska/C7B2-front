@@ -2,7 +2,7 @@ import { Leaderboard } from "./LeaderBoard";
 import TopDog from "./TopDog";
 interface Top3ImagesProps {
     leaderboard: Leaderboard[];
-    setLeaderboard: React.Dispatch<React.SetStateAction<Leaderboard[]>>;
+    // setLeaderboard: React.Dispatch<React.SetStateAction<Leaderboard[]>>;
 }
 
 export function Top3({ leaderboard }: Top3ImagesProps): JSX.Element {

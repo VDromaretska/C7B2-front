@@ -50,7 +50,7 @@ export default function LeaderBoard(): JSX.Element {
                 </tbody>
             </table>
 
-            <Top3 leaderboard={leaderboard} setLeaderboard={setLeaderboard} />
+            <Top3 leaderboard={leaderboard} />
             <button onClick={getLeaderboardInfo}>Refresh table</button>
         </div>
     );

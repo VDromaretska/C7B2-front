@@ -9,6 +9,7 @@ interface TopDogProps {
 
 export default function TopDog({ dog }: TopDogProps): JSX.Element {
     const [image, setImage] = useState("");
+    const [rerenderCounter, setRerenderCounter] = useState(0);
     function breedUrlConstructor(breed: string): string {
         return `https://dog.ceo/api/breed/${breed}/images/random`;
     }
@@ -37,12 +38,12 @@ export default function TopDog({ dog }: TopDogProps): JSX.Element {
         }
 
         updateDogImg();
-    }, [dog.breed]);
+    }, [dog.breed, rerenderCounter]);
 
     return (
         <>
             <div key={dog.breed}>
-                <button onClick={() => true}>
+                <button onClick={() => setRerenderCounter((prev) => prev + 1)}>
                     <img src={image} alt="top-dog" />
                 </button>
                 <h3>
