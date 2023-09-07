@@ -29,7 +29,10 @@ export function VoteView({
     };
     return (
         <div>
-            <img className="dog-img" src={src} alt="random breed" />
+            <div className="dog-img">
+                <img src={src} alt="random breed" />
+            </div>
+
             <button
                 onClick={handleVote}
                 value={breedName}

@@ -1,6 +1,7 @@
 html {
     background: #f8f8f8;
     display: flex;
+    justify-content: center;
     text-align: center;
 }
 
@@ -8,10 +9,18 @@ html {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    max-width: 100%;
 }
 .dog-img {
     margin-left: 30px;
     width: 400px;
+    height: auto;
+    border: 1px solid red;
+}
+.vote-img-container img {
+    /* min-width: 50%;
+    max-width: 50%; */
+    width: 80%;
     height: auto;
 }
 
