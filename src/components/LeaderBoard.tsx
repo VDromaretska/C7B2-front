@@ -8,20 +8,12 @@ export interface Leaderboard {
     votes: number;
 }
 
-interface LeaderBoardProps {
-    setRerenderCounter: React.Dispatch<React.SetStateAction<number>>;
-    rerenderCounter: number;
-}
-
-export default function LeaderBoard({
-    rerenderCounter,
-    setRerenderCounter,
-}: LeaderBoardProps): JSX.Element {
+export default function LeaderBoard(): JSX.Element {
     const [leaderboard, setLeaderboard] = useState<Leaderboard[]>([]);
 
     useEffect(() => {
         getLeaderboardInfo();
-    }, [rerenderCounter]);
+    }, []);
 
     async function getLeaderboardInfo() {
         try {
@@ -57,9 +49,7 @@ export default function LeaderBoard({
                     })}
                 </tbody>
             </table>
-            <button onClick={() => setRerenderCounter((prev) => prev + 1)}>
-                Refresh table
-            </button>
+            <button onClick={getLeaderboardInfo}>Refresh table</button>
             <Top3Breeds podium={leaderboard.slice(0, 3)} />
         </div>
     );

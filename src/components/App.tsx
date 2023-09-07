@@ -12,26 +12,16 @@ export const baseURL =
         : "http://localhost:4000";
 
 function App() {
-    const [rerenderCounter, setRerenderCounter] = useState(0);
     const [currentUserId, setCurrentUserId] = useState("");
     return (
         <div className="App">
             <UserAccount
-                rerenderCounter={rerenderCounter}
-                setRerenderCounter={setRerenderCounter}
                 currentUserId={currentUserId}
                 setCurrentUserId={setCurrentUserId}
             />
             <Header />
-            <VotePicker
-                rerenderCounter={rerenderCounter}
-                setRerenderCounter={setRerenderCounter}
-                currentUserId={currentUserId}
-            />
-            <LeaderBoard
-                rerenderCounter={rerenderCounter}
-                setRerenderCounter={setRerenderCounter}
-            />
+            <VotePicker currentUserId={currentUserId} />
+            <LeaderBoard />
             <Footer />
         </div>
     );

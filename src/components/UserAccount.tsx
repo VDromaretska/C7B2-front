@@ -9,15 +9,11 @@ interface IUser {
 }
 
 interface UserAccountProps {
-    setRerenderCounter: React.Dispatch<React.SetStateAction<number>>;
-    rerenderCounter: number;
     setCurrentUserId: React.Dispatch<React.SetStateAction<string>>;
     currentUserId: string;
 }
 
 export default function UserAccount({
-    rerenderCounter,
-    setRerenderCounter,
     currentUserId,
     setCurrentUserId,
 }: UserAccountProps): JSX.Element {
@@ -25,16 +21,17 @@ export default function UserAccount({
     const [users, setUsers] = useState<IUser[]>([]);
 
     useEffect(() => {
-        async function fetchUsers() {
-            try {
-                const response = await axios.get(`${baseURL}/users`);
-                setUsers(response.data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
         fetchUsers();
-    }, [rerenderCounter]);
+    }, []);
+
+    async function fetchUsers() {
+        try {
+            const response = await axios.get(`${baseURL}/users`);
+            setUsers(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const handleAddUser = async () => {
         try {
@@ -42,8 +39,8 @@ export default function UserAccount({
                 username: loginInput,
             });
             console.log(response);
+            fetchUsers();
             setLoginInput("");
-            setRerenderCounter((prev) => prev + 1);
         } catch (error) {
             console.error(error);
         }

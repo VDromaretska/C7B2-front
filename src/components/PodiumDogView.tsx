@@ -1,7 +1,6 @@
-import axios from "axios";
-import { Leaderboard } from "./LeaderBoard";
-import urlExist from "url-exist";
 import { useEffect, useState } from "react";
+import fetchDogImg from "../utils/fetchDogImg";
+import { Leaderboard } from "./LeaderBoard";
 
 interface TopDogProps {
     dog: Leaderboard;
@@ -9,42 +8,31 @@ interface TopDogProps {
 
 export default function PodiumDogView({ dog }: TopDogProps): JSX.Element {
     const [image, setImage] = useState("");
-    const [rerenderCounter, setRerenderCounter] = useState(0);
+
     function breedUrlConstructor(breed: string): string {
         const searchBreed = breed.replace("-", "/");
         return `https://dog.ceo/api/breed/${searchBreed}/images/random`;
     }
 
+    const currentBreedLink = breedUrlConstructor(dog.breed);
+
     useEffect(() => {
-        async function fetchDogImg() {
-            const url = breedUrlConstructor(dog.breed);
-            console.log(url);
-            const result = await axios.get(url);
-            console.log(result.data);
-            const isValid = await urlExist(result.data.message);
-            const dogImg: string = isValid
-                ? result.data.message
-                : ((await fetchDogImg()) as string);
-            console.log("Dog image is", dogImg);
-            return dogImg;
-        }
+        updateDogImg(currentBreedLink);
+    }, [currentBreedLink]);
 
-        async function updateDogImg() {
-            try {
-                const image = await fetchDogImg();
-                setImage(image);
-            } catch (error) {
-                console.error(error);
-            }
+    async function updateDogImg(url: string) {
+        try {
+            const image = await fetchDogImg(url);
+            setImage(image);
+        } catch (error) {
+            console.error(error);
         }
-
-        updateDogImg();
-    }, [dog.breed, rerenderCounter]);
+    }
 
     return (
         <>
             <div key={dog.breed}>
-                <button onClick={() => setRerenderCounter((prev) => prev + 1)}>
+                <button onClick={() => updateDogImg(currentBreedLink)}>
                     <img src={image} alt="top-dog" />
                 </button>
                 <h3>

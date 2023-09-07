@@ -4,13 +4,13 @@ import { baseURL } from "./App";
 
 interface VoteViewProps {
     src: string;
-    setRerenderCounter: React.Dispatch<React.SetStateAction<number>>;
+    createImgData: () => Promise<void>;
     currentUserId: string;
 }
 
 export function VoteView({
     src,
-    setRerenderCounter,
+    createImgData,
     currentUserId,
 }: VoteViewProps): JSX.Element {
     const breedName = extractBreedName(src as string);
@@ -22,7 +22,7 @@ export function VoteView({
             if (currentUserId !== "") {
                 await axios.put(`${baseURL}/users/${currentUserId}/votecount`);
             }
-            setRerenderCounter((prev) => prev + 1);
+            createImgData();
         } catch (error) {
             console.log("Error on voting", error);
         }
