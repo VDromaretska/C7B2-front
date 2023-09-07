@@ -1,6 +1,5 @@
-import axios from "axios";
-import urlExist from "url-exist";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import fetchDogImg from "../utils/fetchDogImg";
 import { VoteView } from "./VoteView";
 
 export interface APIResponse {
@@ -14,14 +13,10 @@ interface DogImgSrc {
 }
 
 interface VotePickerProps {
-    setRerenderCounter: React.Dispatch<React.SetStateAction<number>>;
-    rerenderCounter: number;
     currentUserId: string;
 }
 
 export default function VotePicker({
-    rerenderCounter,
-    setRerenderCounter,
     currentUserId,
 }: VotePickerProps): JSX.Element {
     const [dogsImageSrc, setDogsImageSrc] = useState<DogImgSrc>({
@@ -30,44 +25,34 @@ export default function VotePicker({
     });
 
     useEffect(() => {
-        async function fetchDogImg() {
-            const APIUrl = "https://dog.ceo/api/breeds/image/random";
-            const response = await axios.get(APIUrl);
-            const result: APIResponse = response.data;
-            const isValid = await urlExist(result.message);
-            const dogImg: string = isValid
-                ? result.message
-                : await fetchDogImg();
-            console.log("Dog image is", dogImg);
-            return dogImg;
-        }
-
-        async function createImgData() {
-            try {
-                const dogOneValue = await fetchDogImg();
-                const dogTwoValue = await fetchDogImg();
-                const imageSrcData: DogImgSrc = {
-                    dogOne: dogOneValue,
-                    dogTwo: dogTwoValue,
-                };
-                setDogsImageSrc(imageSrcData);
-            } catch (error) {
-                console.log("Error fetching data", error);
-            }
-        }
         createImgData();
-    }, [rerenderCounter]);
+    }, []);
+
+    async function createImgData() {
+        try {
+            const APIUrl = "https://dog.ceo/api/breeds/image/random";
+            const dogOneValue = await fetchDogImg(APIUrl);
+            const dogTwoValue = await fetchDogImg(APIUrl);
+            const imageSrcData: DogImgSrc = {
+                dogOne: dogOneValue,
+                dogTwo: dogTwoValue,
+            };
+            setDogsImageSrc(imageSrcData);
+        } catch (error) {
+            console.log("Error fetching data", error);
+        }
+    }
 
     return (
         <div className="vote-img-container">
             <VoteView
                 src={dogsImageSrc.dogOne}
-                setRerenderCounter={setRerenderCounter}
+                createImgData={createImgData}
                 currentUserId={currentUserId}
             />
             <VoteView
                 src={dogsImageSrc.dogTwo}
-                setRerenderCounter={setRerenderCounter}
+                createImgData={createImgData}
                 currentUserId={currentUserId}
             />
         </div>
