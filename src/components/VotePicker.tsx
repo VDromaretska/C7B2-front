@@ -23,6 +23,7 @@ export default function VotePicker({
         dogOne: "",
         dogTwo: "",
     });
+    const [containerHeight, setContainerHeight] = useState<string>("auto");
 
     useEffect(() => {
         createImgData();
@@ -42,18 +43,21 @@ export default function VotePicker({
             console.log("Error fetching data", error);
         }
     }
-
     return (
-        <div className="vote-img-container">
+        <div className="vote-picker-container">
             <VoteView
                 src={dogsImageSrc.dogOne}
                 createImgData={createImgData}
                 currentUserId={currentUserId}
+                setContainerHeight={setContainerHeight}
+                containerHeight={containerHeight}
             />
             <VoteView
                 src={dogsImageSrc.dogTwo}
                 createImgData={createImgData}
                 currentUserId={currentUserId}
+                setContainerHeight={setContainerHeight}
+                containerHeight={containerHeight}
             />
         </div>
     );
