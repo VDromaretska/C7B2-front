@@ -6,16 +6,21 @@ interface VoteViewProps {
     src: string;
     createImgData: () => Promise<void>;
     currentUserId: string;
+    setContainerHeight: (nr: string) => void;
+    containerHeight: string;
 }
 
 export function VoteView({
     src,
     createImgData,
     currentUserId,
+    setContainerHeight,
+    containerHeight,
 }: VoteViewProps): JSX.Element {
     const breedName = extractBreedName(src as string);
     const handleVote = async () => {
         try {
+            setContainerHeight("1000");
             await axios.put(baseURL + "/votes/" + breedName, {
                 breed: breedName,
             });
@@ -27,9 +32,30 @@ export function VoteView({
             console.log("Error on voting", error);
         }
     };
+    const handleImgLoad = (
+        event: React.SyntheticEvent<HTMLImageElement, Event>
+    ) => {
+        const imgHeight = event.currentTarget.clientHeight;
+        if (
+            imgHeight <= parseInt(containerHeight) ||
+            containerHeight === "auto"
+        ) {
+            console.log("Updating to", imgHeight);
+            setContainerHeight(imgHeight.toString());
+        }
+        console.log("Container height is hereee", containerHeight);
+    };
+    const containerStyle = { height: `${containerHeight}px` };
+
     return (
-        <div>
-            <img className="dog-img" src={src} alt="random breed" />
+        <div className="vote-view">
+            <img
+                style={containerStyle}
+                className="dog-img"
+                src={src}
+                alt="random breed"
+                onLoad={(event) => handleImgLoad(event)}
+            />
             <button
                 onClick={handleVote}
                 value={breedName}

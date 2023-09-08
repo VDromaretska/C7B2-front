@@ -32,8 +32,11 @@ export default function PodiumDogView({ dog }: TopDogProps): JSX.Element {
     return (
         <>
             <div key={dog.breed}>
-                <button onClick={() => updateDogImg(currentBreedLink)}>
-                    <img src={image} alt="top-dog" />
+                <button
+                    className="dog-img"
+                    onClick={() => updateDogImg(currentBreedLink)}
+                >
+                    <img className="dog-img" src={image} alt="top-dog" />
                 </button>
                 <h3>
                     {dog.breed}:{dog.votes} votes
