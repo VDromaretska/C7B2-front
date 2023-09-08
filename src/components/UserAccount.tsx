@@ -11,18 +11,20 @@ interface IUser {
 interface UserAccountProps {
     setCurrentUserId: React.Dispatch<React.SetStateAction<string>>;
     currentUserId: string;
+    rerenderCounter: number;
 }
 
 export default function UserAccount({
     currentUserId,
     setCurrentUserId,
+    rerenderCounter,
 }: UserAccountProps): JSX.Element {
     const [loginInput, setLoginInput] = useState("");
     const [users, setUsers] = useState<IUser[]>([]);
 
     useEffect(() => {
         fetchUsers();
-    }, []);
+    }, [rerenderCounter]);
 
     async function fetchUsers() {
         try {

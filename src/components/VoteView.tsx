@@ -8,6 +8,7 @@ interface VoteViewProps {
     currentUserId: string;
     setContainerHeight: (nr: string) => void;
     containerHeight: string;
+    setRerenderCounter: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function VoteView({
@@ -16,6 +17,7 @@ export function VoteView({
     currentUserId,
     setContainerHeight,
     containerHeight,
+    setRerenderCounter,
 }: VoteViewProps): JSX.Element {
     console.log(`containerHeight at render start is ${containerHeight}`);
     const breedName = extractBreedName(src as string);
@@ -28,6 +30,7 @@ export function VoteView({
             if (currentUserId !== "") {
                 await axios.put(`${baseURL}/users/${currentUserId}/votecount`);
             }
+            setRerenderCounter((prev) => prev + 1);
             await createImgData();
         } catch (error) {
             console.log("Error on voting", error);

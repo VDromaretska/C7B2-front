@@ -14,10 +14,12 @@ interface DogImgSrc {
 
 interface VotePickerProps {
     currentUserId: string;
+    setRerenderCounter: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function VotePicker({
     currentUserId,
+    setRerenderCounter,
 }: VotePickerProps): JSX.Element {
     const [dogsImageSrc, setDogsImageSrc] = useState<DogImgSrc>({
         dogOne: "",
@@ -51,6 +53,7 @@ export default function VotePicker({
                 currentUserId={currentUserId}
                 setContainerHeight={setContainerHeight}
                 containerHeight={containerHeight}
+                setRerenderCounter={setRerenderCounter}
             />
             <VoteView
                 src={dogsImageSrc.dogTwo}
@@ -58,6 +61,7 @@ export default function VotePicker({
                 currentUserId={currentUserId}
                 setContainerHeight={setContainerHeight}
                 containerHeight={containerHeight}
+                setRerenderCounter={setRerenderCounter}
             />
         </div>
     );
