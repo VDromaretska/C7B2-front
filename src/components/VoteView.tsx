@@ -18,16 +18,20 @@ export function VoteView({
     containerHeight,
 }: VoteViewProps): JSX.Element {
     const breedName = extractBreedName(src as string);
+    const updateContainerHeight = () => {
+        setContainerHeight("auto");
+    };
     const handleVote = async () => {
         try {
-            setContainerHeight("1000");
+            setContainerHeight("auto");
             await axios.put(baseURL + "/votes/" + breedName, {
                 breed: breedName,
             });
             if (currentUserId !== "") {
                 await axios.put(`${baseURL}/users/${currentUserId}/votecount`);
             }
-            createImgData();
+            await createImgData();
+            updateContainerHeight();
         } catch (error) {
             console.log("Error on voting", error);
         }
@@ -37,9 +41,10 @@ export function VoteView({
     ) => {
         const imgHeight = event.currentTarget.clientHeight;
         if (
-            imgHeight <= parseInt(containerHeight) ||
+            imgHeight < parseInt(containerHeight) ||
             containerHeight === "auto"
         ) {
+            console.log("Updating container height to", imgHeight);
             setContainerHeight(imgHeight.toString());
         }
     };
