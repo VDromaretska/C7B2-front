@@ -13,14 +13,19 @@ export const baseURL =
 
 function App() {
     const [currentUserId, setCurrentUserId] = useState("");
+    const [rerenderCounter, setRerenderCounter] = useState(0);
     return (
         <div className="App">
             <UserAccount
                 currentUserId={currentUserId}
                 setCurrentUserId={setCurrentUserId}
+                rerenderCounter={rerenderCounter}
             />
             <Header />
-            <VotePicker currentUserId={currentUserId} />
+            <VotePicker
+                currentUserId={currentUserId}
+                setRerenderCounter={setRerenderCounter}
+            />
             <LeaderBoard />
             <Footer />
         </div>
