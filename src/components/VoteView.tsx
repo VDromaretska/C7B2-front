@@ -40,10 +40,8 @@ export function VoteView({
             imgHeight <= parseInt(containerHeight) ||
             containerHeight === "auto"
         ) {
-            console.log("Updating to", imgHeight);
             setContainerHeight(imgHeight.toString());
         }
-        console.log("Container height is hereee", containerHeight);
     };
     const containerStyle = { height: `${containerHeight}px` };
 

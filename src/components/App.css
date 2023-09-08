@@ -6,27 +6,7 @@ html {
     justify-content: center;
     font-family: "Underdog", cursive;
 }
-/* [
-  "#a8e6ce",
-  "#dcedc2",
-  "#ffd3b5",
-  "#ffaaa6",
-  "#ff8c94"
-  [
-  "#ff4e50",
-  "#fc913a",
-  "#f9d423",
-  "#ede574",
-  "#e1f5c4"
-]
-[
-  "#1b676b",
-  "#519548",
-  "#88c425",
-  "#bef202",
-  "#eafde6"
-]
-] */
+
 .vote-picker-container {
     display: flex;
     flex-direction: row;
